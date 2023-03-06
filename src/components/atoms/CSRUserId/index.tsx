@@ -3,6 +3,7 @@
 import withReactQuery from '@/hoc/withReactQuery'
 
 import { useQuery } from 'react-query'
+import styled from 'styled-components'
 
 function CSRUserId() {
   const { data, isLoading } = useQuery('post', () =>
@@ -13,7 +14,11 @@ function CSRUserId() {
 
   if (isLoading) return <h2>Loading...</h2>
 
-  return <main>{data.userId}</main>
+  return <Main>{data.userId}</Main>
 }
+
+const Main = styled.div`
+  background-color: red;
+`
 
 export default withReactQuery(CSRUserId)
