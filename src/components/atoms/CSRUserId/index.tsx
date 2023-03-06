@@ -1,25 +1,19 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import withReactQuery from '@/hoc/withReactQuery'
 
-export default function CSRUserId() {
-  const [userId, setUserId] = useState(0)
-  const [isLoading, setLoading] = useState(false)
+import { useQuery } from 'react-query'
 
-  useEffect(() => {
-    setLoading(true)
-
-    fetch('https://jsonplaceholder.typicode.com/posts/1')
-      .then(res => res.json())
-      .then(user => {
-        setUserId(user.id)
-        setLoading(false)
-      })
-  }, [])
-
-  return (
-    <main>
-      <h2>CSR: {isLoading ? 'Carregando' : userId}</h2>
-    </main>
+function CSRUserId() {
+  const { data, isLoading } = useQuery('post', () =>
+    fetch('https://jsonplaceholder.typicode.com/posts/1').then(res =>
+      res.json()
+    )
   )
+
+  if (isLoading) return <h2>Loading...</h2>
+
+  return <main>{data.userId}</main>
 }
+
+export default withReactQuery(CSRUserId)

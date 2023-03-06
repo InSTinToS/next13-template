@@ -12,9 +12,12 @@ export default async function SSRUserId() {
     cache: 'force-cache'
   }).then(res => res.json())
 
+  console.log(process.env.NEXT_PUBLIC_TEST)
+
   return (
     <main>
       <h2>SSR: {user.id}</h2>
+      <h3>ENV: {process.env.NEXT_PUBLIC_TEST}</h3>
     </main>
   )
 }
